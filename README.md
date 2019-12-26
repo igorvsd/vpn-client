@@ -4,7 +4,9 @@ SoftEther VPN Client with automatic routes
 
 Required to be started with --privileged & --network host because it creates network interface and modifies local routes
 
-Confirmed to work in linux. [Ubuntu 18.04.1]
+Confirmed to work in linux.:
+[Ubuntu 18.04.1]  
+[Ubuntu 18.04.3]
 
 can be started with this script:
 ```
