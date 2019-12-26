@@ -1,7 +1,6 @@
 #!/bin/bash
 VIRTUAL_HUB=${VIRTUAL_HUB:-"VPN"}
 NIC_NAME=${NIC_NAME:-"nic"}
-TAP_IPADDR=${TAP_IPADDR:-"192.168.30.30/24"}
 GW=${GW:-"192.168.30.1"}
 VPN_PORT=${VPN_PORT:-"5555"}
 uid=`cat /proc/sys/kernel/random/uuid | cut -c 1-8`
@@ -47,10 +46,11 @@ while true; do
     fi
 done
 
+set -x
 if [[ -z "${TAP_IPADDR}" ]]; then
-    ip addr add ${TAP_IPADDR} dev ${TAP_DEVICE}
-else
     dhcpcd -G ${TAP_DEVICE}
+else
+    ip addr add ${TAP_IPADDR} dev ${TAP_DEVICE}
 fi
 
 ip route add ${GW}/32 via ${GW} dev ${TAP_DEVICE}
