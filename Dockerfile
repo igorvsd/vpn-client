@@ -12,7 +12,7 @@ RUN addgroup -S softether && adduser -D -H softether -g 'softether' -G softether
     strip /usr/vpnclient/vpnclient && \
     apk del .build-deps && \
     apk add --no-cache --virtual .run-deps \
-    libcap libcrypto1.0 libssl1.0 ncurses-libs readline su-exec bash iptables bind-tools && \
+    libcap libcrypto1.0 libssl1.0 ncurses-libs readline su-exec bash iptables bind-tools dhcpcd && \
     cd .. && rm -rf /usr/vpnbridge /usr/bin/vpnbridge /usr/vpnserver /usr/bin/vpnserver /usr/bin/vpnclient ${FOLDER}
 COPY copyables /root/
 RUN chmod +x /root/entrypoint*.sh && chmod +x /root/route*.sh
