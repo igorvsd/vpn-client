@@ -50,7 +50,7 @@ done
 if [[ -z "${TAP_IPADDR}" ]]; then
     ip addr add ${TAP_IPADDR} dev ${TAP_DEVICE}
 else
-    dhcpcd ${TAP_DEVICE}
+    dhcpcd -G ${TAP_DEVICE}
 fi
 
 ip route add ${GW}/32 via ${GW} dev ${TAP_DEVICE}

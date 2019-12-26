@@ -1,7 +1,7 @@
 FROM alpine:3.6
 ENV LANG="en_US.UTF-8" \
-    SOFTETHER_VERSION="v4.28-9669-beta" \
-    FOLDER="v4.28-9669"
+    SOFTETHER_VERSION="v4.31-9727-beta" \
+    FOLDER="v4.31-9727"
 RUN addgroup -S softether && adduser -D -H softether -g 'softether' -G softether -s /bin/sh && \
     apk add --no-cache --virtual .build-deps \
       gcc make musl-dev ncurses-dev openssl-dev readline-dev wget && \
