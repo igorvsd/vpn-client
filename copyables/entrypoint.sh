@@ -32,6 +32,11 @@ else
     fi
 fi
 #${VPNCMD} AccountDetailSet ${ACCOUNT_NAME} /MAXTCP:8 /NOQOS /INTERVAL:1 /TTL:0 /HALF:no /BRIDGE:no /MONITOR:no /NOTRACK:yes
+
+if ! [ -z "${COMPRESS}" ]; then
+    ${VPNCMD} AccountCompressEnable ${ACCOUNT_NAME}
+fi
+
 ${VPNCMD} AccountConnect ${ACCOUNT_NAME}
 
 export TAP_DEVICE="vpn_${NIC_NAME}"
@@ -46,7 +51,6 @@ while true; do
     fi
 done
 
-set -x
 if [[ -z "${TAP_IPADDR}" ]]; then
     dhcpcd -G ${TAP_DEVICE}
 else
@@ -59,8 +63,6 @@ tail -F /usr/vpnclient/client_log/*.log &
 
 startDate=`date +%s`
 echo ${startDate}
-
-./route.sh
 
 while true; do
     ping -c 1 ${GW}
@@ -75,6 +77,8 @@ while true; do
     fi
     sleep 1
 done
+
+./route.sh
 
 echo "VPN Client connected successfully. Starting infinite cycle to keep docker running."
 
