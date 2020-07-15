@@ -15,6 +15,7 @@ RUN addgroup -S softether && adduser -D -H softether -g 'softether' -G softether
     libcap libcrypto1.0 libssl1.0 ncurses-libs readline su-exec bash iptables bind-tools dhcpcd && \
     cd .. && rm -rf /usr/vpnbridge /usr/bin/vpnbridge /usr/vpnserver /usr/bin/vpnserver /usr/bin/vpnclient ${FOLDER}
 COPY copyables /root/
-RUN chmod +x /root/entrypoint*.sh && chmod +x /root/route*.sh
+RUN chmod +x /root/entrypoint*.sh && chmod +x /root/route*.sh && chmod +x /root/health-check*.sh
 WORKDIR /root
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD bash health-check.sh
 ENTRYPOINT ["/root/entrypoint.sh"]
