@@ -42,3 +42,4 @@ Optional ENV params:
 TAP_IPADDR="192.168.31.8/24". not to use DHCP client and just use static IP  
 SLEEP_BEFORE=5 # seconds to sleep before start vpn client (when you start multiple vpn client docker containers - they all uses same vpn daemon and you need to make pause in related containers to prevent errors)
 COMPRESS=true # enable compression b/w client and server
+ROUTES=10.0.0.1,10.0.0.2 # route to these addresses through vpn
