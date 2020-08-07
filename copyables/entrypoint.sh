@@ -64,6 +64,16 @@ tail -F /usr/vpnclient/client_log/*.log &
 startDate=`date +%s`
 echo ${startDate}
 
+cleanup () {
+    echo 'clean-up started'
+    ${VPNCMD} AccountDisconnect ${ACCOUNT_NAME}
+    ${VPNCMD} AccountDelete ${ACCOUNT_NAME}
+    ${VPNCMD} NicDisable ${NIC_NAME}
+    ${VPNCMD} NicDelete ${NIC_NAME}
+}
+
+trap 'cleanup; exit 0' SIGTERM SIGINT SIGKILL
+
 while true; do
     ping -c 1 ${GW}
     rc=$?
@@ -81,7 +91,5 @@ done
 ./route.sh
 
 echo "VPN Client connected successfully. Starting infinite cycle to keep docker running."
-
-trap 'echo "trap"; exit 0' SIGTERM SIGINT SIGKILL
 
 while true; do sleep 1; done
